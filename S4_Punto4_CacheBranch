@@ -1,0 +1,15 @@
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class CacheBranch {
+    private Map<Integer, Sucursal> cache = new HashMap<>();
+
+    public void addBranch(Sucursal sucursal) {
+        cache.put(sucursal.getId(), sucursal);
+    }
+
+    public Sucursal getBranch(int id) {
+        return cache.get(id);
+    }
+}
