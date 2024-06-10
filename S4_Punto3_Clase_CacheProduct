@@ -1,0 +1,14 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class CacheProduct {
+    private Map<Integer, Producto> cache = new HashMap<>();
+
+    public void addProduct(Producto producto) {
+        cache.put(producto.getId(), producto);
+    }
+
+    public Producto getProduct(int id) {
+        return cache.get(id);
+    }
+}
