@@ -1,0 +1,25 @@
+
+import javax.jms.*;
+import org.apache.activemq.ActiveMQConnectionFactory;
+
+public class Productor {
+    private static String url = "tcp://localhost:61616";
+    private static String queueName = "transacciones";
+
+    public static void sendMessage(String message) throws JMSException {
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+        Connection connection = connectionFactory.createConnection();
+        connection.start();
+
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Destination destination = session.createQueue(queueName);
+        MessageProducer producer = session.createProducer(destination);
+        producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+        TextMessage textMessage = session.createTextMessage(message);
+        producer.send(textMessage);
+
+        session.close();
+        connection.close();
+    }
+}
